@@ -33,3 +33,25 @@ pokeApi.getPokemons = (offset = 0, limit = 5) => {
         .then((detailRequests) => Promise.all(detailRequests))
         .then((pokemonsDetails) => pokemonsDetails)
 }
+
+
+// ... Seu código existente ...
+
+pokeApi.getPokemonDetailByName = (pokemonName) => {
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`;
+
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Erro na solicitação: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(convertPokeApiDetailToPokemon)
+        .catch((error) => {
+            console.error('Erro ao obter detalhes do Pokémon:', error);
+            throw new Error('Erro ao obter detalhes do Pokémon.');
+        });
+};
+
+// ... Restante do seu código ...
